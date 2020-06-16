@@ -1,6 +1,6 @@
 {
   "name": "com.futuclass.event-bus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Event Bus",
   "description": "Event dispatcher",
   "unity": "",
