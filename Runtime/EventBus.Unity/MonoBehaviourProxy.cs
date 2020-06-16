@@ -4,26 +4,26 @@ namespace Futuclass.EventBus.Unity
 {
     public class MonoBehaviourProxy : MonoBehaviour, IProxy
     {
-        public ISubscription Subscription { get; private set; }
+        public ISubscription Subscription { get; protected set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Subscription = GlobalEventBus.Instance.RegisterSubscription(this);
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             if (Subscription != null)
                 Subscription.Active = true;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (Subscription != null) 
                 Subscription.Active = false;
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Subscription.Dispose();
         }
