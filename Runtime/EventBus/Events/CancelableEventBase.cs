@@ -1,5 +1,4 @@
-﻿
-namespace Futuclass.EventBus
+﻿namespace Futuclass.EventBus
 {
     /// <summary>
     /// The base class for all cancelable events
@@ -7,5 +6,7 @@ namespace Futuclass.EventBus
     public abstract class CancelableEventBase : EventBase
     {
         public bool Canceled { get; set; } = false;
+
+        public void Cancel() => Canceled = true;
     }
 }
