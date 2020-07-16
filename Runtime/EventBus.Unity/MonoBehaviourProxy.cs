@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Futuclass.EventBus.Unity
 {
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class MonoBehaviourProxy : MonoBehaviour, IProxy
     {
-        public ISubscription Subscription { get; protected set; }
+        public ISubscription Subscription { get; private set; }
 
         protected virtual void Awake()
         {
@@ -25,7 +26,7 @@ namespace Futuclass.EventBus.Unity
 
         protected virtual void OnDestroy()
         {
-            Subscription.Dispose();
+            Subscription?.Dispose();
         }
     }
 }
