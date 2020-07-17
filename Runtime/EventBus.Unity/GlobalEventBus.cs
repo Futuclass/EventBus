@@ -8,5 +8,9 @@ namespace Futuclass.EventBus.Unity
 
         private GlobalEventBus(bool throwIfNotRegistered = false) : base(throwIfNotRegistered) { }
 
+        public new static void Publish<TEvent>(TEvent eventBase) where TEvent : EventBase
+        {
+            ((EventBus) Instance).Publish(eventBase);
+        }
     }
 }
