@@ -21,10 +21,8 @@ namespace Futuclass.EventBus
 
         public void Handle(TEvent eventObject)
         {
-            foreach (var t in _handlers)
-            {
-                t?.Handle(eventObject);
-            }
+            for (var i = 0; i < _handlers.Count; i++)
+                _handlers[i]?.Handle(eventObject);
         }
 
         public void RemoveSubscription(ISubscription subscription)
