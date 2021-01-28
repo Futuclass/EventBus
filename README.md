@@ -5,6 +5,8 @@ EventBus is a system, which can dispatch published events to any registered hand
 
 This creates a clean separation between event sources and handlers, and allows to build handler pipelines dynamically in runtime, rather than compile time. So in theory you can even load third-party libraries adopted for this Event Bus and insert their handlers into the pipeline. For example, this behavior can be used to implement plugin systems.
 
+EventBus isn't thread-safe, be careful.
+
 ## Features
 - Custom event arguments.
 - Automatic event data mapping to handlers by type.
