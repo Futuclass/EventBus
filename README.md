@@ -5,6 +5,15 @@ EventBus is a system, which can dispatch published events to any registered hand
 
 This creates a clean separation between event sources and handlers, and allows to build handler pipelines dynamically in runtime, rather than compile time. So in theory you can even load third-party libraries adopted for this Event Bus and insert their handlers into the pipeline. For example, this behavior can be used to implement plugin systems.
 
+## Features
+- Custom event arguments.
+- Automatic event data mapping to handlers by type.
+- Ability to decouple code.
+- Prioritized handlers.
+- Cancelable events.
+- Event pipeline building in runtime.
+
+
 ## Installation
 
 ### Install via OpenUPM
@@ -33,15 +42,51 @@ Notice: Unity Package Manager records the current commit to a lock entry of the 
         "hash": "..."
       }
     }
+    
+    
+## Usage 
+```csharp
+using Futuclass.EventBus;
+using Futuclass.EventBus.Unity;
+using System;
+using UnityEngine;
 
+public class ChatMessageArgs : CancelableEventBase
+{
+    public string Message;
+}
 
-## Features
-- Custom event arguments.
-- Automatic event data mapping to handlers by type.
-- Ability to decouple code.
-- Prioritized handlers.
-- Cancelable events.
-- Event pipeline building in runtime.
+public class MessageSender : MonoBehaviour
+{
+    public void SendChatMessage(string message)
+    {
+        GlobalEventBus.Publish(new ChatMessageArgs
+        {
+            Message = message
+        });
+    }
+}
+
+public class MessageProcessor : MonoBehaviourProxy
+{
+    [Handler(HandlerPriority.High)]
+    public void HandleCommandMessage(ChatMessageArgs args)
+    {
+        if (!args.Message.StartsWith("/")) return;
+        
+        // If it's a command, handle it and cancel the event
+        // Messages starting with / should be sent as regular chat messages
+        HandleCommand(args.Message);
+        args.Cancel();
+    }
+    
+    [Handler(HandlerPriority.Medium)]
+    public void HandleRegularMessage(ChatMessageArgs args)
+    {
+        SendMessageToChat(args.Message);
+    }
+}
+```
 
 ## Credits
 Based on [Salday/EventBus](https://github.com/SaldayOpen/EventBus)
