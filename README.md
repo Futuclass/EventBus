@@ -85,7 +85,7 @@ public class MessageProcessor : MonoBehaviourProxy
     [Handler(HandlerPriority.Medium)]
     public void HandleRegularMessage(ChatMessageArgs args)
     {
-        if(Canceled) return;
+        if(args.Canceled) return;
         
         SendMessageToChat(args.Message);
     }
