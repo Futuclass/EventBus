@@ -9,11 +9,17 @@ namespace Futuclass.EventBus
 
         private IList<IHandler<TEvent>> _handlers = new List<IHandler<TEvent>>();
 
+#if ENABLE_IL2CPP
+        [Preserve]
+#endif
         public HandlerCollection(IEventBus evBus)
         {
             this.EvBus = evBus;
         }
 
+#if ENABLE_IL2CPP
+        [Preserve]
+#endif
         public HandlerCollection(IEventBus evBus, IList<IHandler<TEvent>> handlers) : this(evBus)
         {
             this._handlers = handlers;

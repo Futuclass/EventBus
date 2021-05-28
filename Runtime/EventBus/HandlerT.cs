@@ -25,6 +25,9 @@ namespace Futuclass.EventBus
         /// </summary>
         public ISubscription Subscription { get; set; }
 
+#if ENABLE_IL2CPP
+        [Preserve]
+#endif
         public Handler(Type handledType, HandlerPriority priority, Action<TEvent> action)
         {
             this.HandledType = handledType;
