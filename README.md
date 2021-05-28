@@ -14,6 +14,7 @@ EventBus isn't thread-safe, be careful.
 - Prioritized handlers.
 - Cancelable events.
 - Event pipeline building in runtime.
+- IL2CPP support.
 
 
 ## Installation
